@@ -1,5 +1,8 @@
 <?php 
 
+use \WHMCS\Billing\Invoice;
+use \WHMCS\Billing\Invoice\Item;
+
 require_once __DIR__ . '/functions.php';
 
 add_hook('AdminInvoicesControlsOutput', 1, function($vars) {
@@ -27,4 +30,18 @@ add_hook('AdminInvoicesControlsOutput', 1, function($vars) {
 	<?php endif ?>
 
 	<?php echo ob_get_clean();
+});
+
+
+add_hook('UpdateInvoiceTotal', 1, function($vars) {
+	$invoice = Invoice::with('items')->findOrFail($vars['invoiceid']);
+
+	foreach ($invoice->items as $item) {
+		if ($item->taxed && $item->amount < 0) {
+			$invoice->tax1 = $item->amount * ($invoice->taxRate1 / 100);
+		}
+	}
+
+	$invoice->total = $invoice->subtotal - $invoice->credit + $invoice->tax1 + $invoice->tax2;
+	$invoice->save();
 });
