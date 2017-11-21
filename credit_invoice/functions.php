@@ -13,7 +13,7 @@ function credit_invoice_credit() {
 	$credit->subtotal = -$credit->subtotal;
 	$credit->tax = -$credit->tax;
 	$credit->total = -$credit->total;
-	$credit->adminNotes = "creditnote|{$invoiceId}";
+	$credit->adminNotes = "Refund Invoice|{$invoiceId}|DO-NOT-REMOVE";
 	$credit->dateCreated = Carbon\Carbon::now();
 	$credit->dateDue = Carbon\Carbon::now();
 	$credit->datePaid = Carbon\Carbon::now();
@@ -44,7 +44,7 @@ function credit_invoice_credit() {
 
 	// Mark original invoice as paid and add reference to credit note.
 	$invoice->status = 'Paid';
-	$invoice->adminNotes = $invoice->adminNotes . PHP_EOL . "credited|{$credit->id}";
+	$invoice->adminNotes = $invoice->adminNotes . PHP_EOL . "Refund Credit Note|{$credit->id}|DO-NOT-REMOVE";
 	$invoice->save();
 
 	// Finally redirect to our credit note.
@@ -53,13 +53,13 @@ function credit_invoice_credit() {
 
 function invoice_is_credited($invoiceId) {
 	$invoice = Invoice::findOrFail($invoiceId);
-	preg_match('/credited\|(.*)/', $invoice->adminNotes, $matches);
+	preg_match('/Refund Credit Note\|(.*)/', $invoice->adminNotes, $matches);
 	return $matches;
 }
 
 function invoice_is_creditnote($invoiceId) {
 	$invoice = Invoice::findOrFail($invoiceId);
-	preg_match('/creditnote\|(.*)/', $invoice->adminNotes, $matches);
+	preg_match('/Refund Invoice\|(.*)/', $invoice->adminNotes, $matches);
 	return $matches;
 }
 

@@ -26,7 +26,7 @@ function credit_invoice_config() {
 		'description' => 'A simple module that allows admins to credit / refund invoices.',
 		'author' => 'Onlineforce Sweden AB',
 		'language' => 'english',
-		'version' => '1.0',
+		'version' => '1.1',
 	);
 }
 
