@@ -1,7 +1,9 @@
-<?php 
+<?php
 
 use \WHMCS\Billing\Invoice;
 use \WHMCS\Billing\Invoice\Item;
+
+defined('WHMCS') || exit;
 
 require_once __DIR__ . '/functions.php';
 
@@ -13,7 +15,7 @@ add_hook('AdminInvoicesControlsOutput', 1, function($vars) {
 		<a href="invoices.php?action=edit&id=<?= $creditId ?>" class="button btn btn-default">Credited in <?= $creditId ?></a>
 
 	<?php elseif ($originalId = invoice_is_creditnote($vars['invoiceid'])[1]): ?>
-		    
+
 		<a href="invoices.php?action=edit&id=<?= $originalId ?>" class="button btn btn-default">Credit invoice of <?= $originalId ?></a>
 
 	<?php else: ?>

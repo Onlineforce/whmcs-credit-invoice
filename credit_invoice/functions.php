@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 use \WHMCS\Billing\Invoice;
 use \WHMCS\Billing\Invoice\Item;
@@ -40,7 +40,6 @@ function credit_invoice_credit() {
 		'amount' => 0,
 	];
 	Capsule::table('tblinvoiceitems')->insert($newItems);
-	
 
 	// Mark original invoice as paid and add reference to credit note.
 	$invoice->status = 'Paid';
