@@ -53,14 +53,14 @@ function credit_invoice_credit() {
 
 function invoice_is_credited($invoiceId) {
 	$invoice = Invoice::findOrFail($invoiceId);
-	preg_match('/Refund Credit Note\|(.*)/', $invoice->adminNotes, $matches);
-	return $matches;
+	preg_match('/Refund Credit Note\|(\d*)/', $invoice->adminNotes, $match);
+	return $match;
 }
 
 function invoice_is_creditnote($invoiceId) {
 	$invoice = Invoice::findOrFail($invoiceId);
-	preg_match('/Refund Invoice\|(.*)/', $invoice->adminNotes, $matches);
-	return $matches;
+	preg_match('/Refund Invoice\|(\d*)/', $invoice->adminNotes, $match);
+	return $match;
 }
 
 function redirect_to_invoice($invoiceId) {
