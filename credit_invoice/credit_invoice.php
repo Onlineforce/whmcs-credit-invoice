@@ -35,7 +35,10 @@ function credit_invoice_activate() {
 
 function credit_invoice_deactivate() {
 	
-};
+	if ( ! $action ) {
+		echo 'This module has no admin page. Open an invoice to use the module.';
+		return;
+	};
 
 function credit_invoice_output($vars) {
 
