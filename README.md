@@ -1,4 +1,4 @@
-# whmcs-credit-invoice
+# Credit invoice / credit note addon for WHMCS
 
 A simple module that allows admins to credit / refund invoices.
 
@@ -12,10 +12,18 @@ to be able to easily keep track of which credit note belongs to which invoice, a
 
 ## Installing
 
-1. Download the [latest version](https://github.com/Onlineforce/whmcs-credit-invoice/releases/latest) (.zip)
+1. Download the [latest version](https://github.com/Onlineforce/whmcs-credit-invoice/releases/latest)
 2. Extract the archive and copy the __credit_invoice__ folder to whmcs_path/modules/addons
 3. Activate the module from the "Addon Modules" settings page.
 4. On the same page as above, press "Configure" and choose the admin groups that can create credit notes.
+
+## Usage
+
+Open an invoice. You should see a new button, "Credit invoice". When pressed, a new invoice will be created.
+
+The new invoice will contain the exact same line items, but with reversed amounts _($10 becomes -$10)_.
+
+You will be redirected to the new credit note, where you can send the invoice to your client _(standard WHMCS way)_. It is also possible to navigate between the original and the credit note by pressing the button.
 
 ## Todo
 
