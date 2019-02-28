@@ -34,16 +34,13 @@ add_hook('AdminInvoicesControlsOutput', 1, function($vars) {
 	<?php echo ob_get_clean();
 });
 
+add_hook('ClientAreaPageViewInvoice', 1, function($vars) {
 
-add_hook('UpdateInvoiceTotal', 1, function($vars) {
-	$invoice = Invoice::with('items')->findOrFail($vars['invoiceid']);
-
-	foreach ($invoice->items as $item) {
-		if ($item->taxed && $item->amount < 0) {
-			$invoice->tax1 = $item->amount * ($invoice->taxRate1 / 100);
-		}
-	}
-
-	$invoice->total = $invoice->subtotal - $invoice->credit + $invoice->tax1 + $invoice->tax2;
-	$invoice->save();
+	$data = [
+		'notes' => credit_invoice_replace_notes($vars['notes'], true),
+		'pagetitle' => credit_invoice_replace_pagetitle($vars['invoiceid'], $vars['pagetitle']),
+	];
+	
+	return $data;
 });
+
