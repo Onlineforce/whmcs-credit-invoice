@@ -88,14 +88,22 @@ function credit_invoice_credit() {
 
 function invoice_is_credited($invoiceId) {
     $invoice = Invoice::findOrFail($invoiceId);
-    preg_match('/Refund Credit Note\|(\d*)/', $invoice->adminNotes, $match);
-    return $match;
+
+    if (preg_match('/Refund Credit Note\|(\d*)/', $invoice->adminNotes, $match)) {
+        return $match;
+    }
+
+    return false;
 }
 
 function invoice_is_creditnote($invoiceId) {
     $invoice = Invoice::findOrFail($invoiceId);
-    preg_match('/Refund Invoice\|(\d*)/', $invoice->adminNotes, $match);
-    return $match;
+    
+    if (preg_match('/Refund Invoice\|(\d*)/', $invoice->adminNotes, $match)) {
+        return $match;
+    }
+
+    return false;
 }
 
 function redirect_to_invoice($invoiceId) {
@@ -146,6 +154,9 @@ function credit_invoice_replace_notes($invoiceNotes, $html=false) {
 
 function credit_invoice_replace_pagetitle($invoiceId, $pageTitle) {
     $addonSettings = credit_invoice_getconfig();
+
+    if (!invoice_is_creditnote($invoiceId))
+        return $pageTitle;
 
     if (empty($addonSettings['creditNotePageTitle'])) {
         $return = $pageTitle;
