@@ -1,3 +1,8 @@
+## UNMAINTAINED ##
+This addon is unmaintained and has issues with newer versions of WHMCS / PHP.
+Let me know if you would like to contribute by fixing the open issues.
+
+
 # Credit invoice / credit note addon for WHMCS
 
 A simple module that allows admins to credit / refund invoices.
